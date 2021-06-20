@@ -7,12 +7,14 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import VideoContext from "../../context/VideoContext";
 import Hang from "../../assests/hang.svg";
 import {
-  TwitterIcon,
-  TwitterShareButton,
+
+  TelegramShareButton,
+  LinkedinShareButton,
+  TelegramIcon,
+  LinkedinIcon,
   WhatsappShareButton,
   WhatsappIcon,
-  FacebookIcon,
-  FacebookShareButton,
+  
 } from "react-share";
 import {
   UserOutlined,
@@ -22,7 +24,7 @@ import {
 } from "@ant-design/icons";
 import { socket } from "../../context/VideoState";
 
-const Options = () => {
+const Options = ({themeValue}) => {
   const [idToCall, setIdToCall] = useState("");
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -68,9 +70,9 @@ const Options = () => {
   }, [call.isReceivingCall]);
 
   return (
-    <div className={classes.options}>
+    <div className={`${classes.options} ${themeValue && classes.options__dark}`} >
       <div style={{ marginBottom: "0.5rem" }}>
-        <h2>Account Info</h2>
+        <h2 style={{color:"#1890ff"}}>Username</h2>
         <Input
           size="large"
           placeholder="Your name"
@@ -94,41 +96,44 @@ const Options = () => {
               tabIndex="0"
               onClick={() => message.success("Code copied successfully!")}
             >
-              Copy code
+              Meeting code
             </Button>
           </CopyToClipboard>
 
           <div className={classes.share_social}>
             <WhatsappShareButton
-              url={`https://video-chat-mihir.web.app/`}
-              title={`Join this meeting with the given code ""\n`}
+              url={`https://video-chatter.netlify.com/`}
+              title={`Join this meeting with the given code ${me}\n`}
               separator="Link: "
               className={classes.share_icon}
             >
               <WhatsappIcon size={26} round />
             </WhatsappShareButton>
-            <FacebookShareButton
-              url={`https://video-chat-mihir.web.app/`}
-              title={`Join this meeting with the given code ""\n`}
+            <TelegramShareButton
+              url={`https://video-chatter.netlify.com/`}
+              title={`Join this meeting with the given code ${me}\n`}
+              separator="Link: "
               className={classes.share_icon}
             >
-              <FacebookIcon size={26} round />
-            </FacebookShareButton>
-            <TwitterShareButton
-              url={`https://video-chat-mihir.web.app/`}
-              title={`Join this meeting with the given code  \n`}
+              <TelegramIcon size={26} round />
+            </TelegramShareButton>
+           
+            <LinkedinShareButton
+              url={`https://video-chatter.netlify.com/`}
+              title={`Join this meeting with the given code ${me}\n`}
               className={classes.share_icon}
             >
-              <TwitterIcon size={26} round className={classes.share_border} />
-            </TwitterShareButton>
+              <LinkedinIcon size={26} round/>
+              </LinkedinShareButton>
+              
           </div>
         </div>
       </div>
       <div style={{ marginBottom: "0.5rem" }}>
-        <h2>Make a call</h2>
+        <h2 style={{color:"#1890ff"}}>New Meeting</h2>
 
         <Input
-          placeholder="Enter code to call"
+          placeholder="Enter a code "
           size="large"
           className={classes.inputgroup}
           value={idToCall}
@@ -153,6 +158,7 @@ const Options = () => {
             &nbsp; Hang up
           </Button>
         ) : (
+          <div className={classes.btnParent}> 
           <Button
             type="primary"
             icon={<PhoneOutlined />}
@@ -163,8 +169,9 @@ const Options = () => {
             className={classes.btn}
             tabIndex="0"
           >
-            Call
+            Join
           </Button>
+          </div>
         )}
       </div>
 

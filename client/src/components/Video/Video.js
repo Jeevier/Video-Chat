@@ -15,7 +15,7 @@ import { socket } from "../../context/VideoState";
 
 // const socket = io()
 const { Search } = Input;
-const Video = () => {
+const Video = ({filter}) => {
   const {
     call,
     callAccepted,
@@ -99,12 +99,13 @@ const Video = () => {
               style={{
                 opacity: `${myVdoStatus ? "1" : "0"}`,
                 transform: "scaleX(-1)",
+                filter:`${filter}`
               }}
             />
 
             <Avatar
               style={{
-                backgroundColor: "#116",
+                backgroundColor: "#0b71ad",
                 position: "absolute",
                 opacity: `${myVdoStatus ? "-1" : "2"}`,
               }}
@@ -214,7 +215,7 @@ const Video = () => {
 
             <Avatar
               style={{
-                backgroundColor: "#116",
+                backgroundColor: "rgb(11, 113, 173)",
                 position: "absolute",
                 opacity: `${userVdoStatus ? "-1" : "2"}`,
               }}
